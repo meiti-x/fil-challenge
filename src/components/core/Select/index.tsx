@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
-import Select, { MultiValue, StylesConfig, GroupBase } from 'react-select'
+import React, { useEffect, useState } from 'react'
+import Select, {
+  MultiValue,
+  StylesConfig,
+  GroupBase,
+  SingleValue
+} from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Typography from '@components/core/Typography'
 
-interface OptionType {
+export interface OptionType {
   label: string
   value: string
 }
@@ -11,6 +16,9 @@ interface OptionType {
 interface Props {
   options: OptionType[]
   placeholder?: string
+  onChange?: (value: MultiValue<OptionType>) => void
+  isMulti?: boolean
+  value?: MultiValue<OptionType>
 }
 
 const customStyles: StylesConfig<OptionType, true, GroupBase<OptionType>> = {
@@ -25,15 +33,28 @@ const customStyles: StylesConfig<OptionType, true, GroupBase<OptionType>> = {
 
 const MultiSelectWithCheckboxes: React.FC<Props> = ({
   options,
-  placeholder
+  placeholder,
+  onChange,
+  isMulti,
+  value = []
 }: Props) => {
-  const [selectedOptions, setSelectedOptions] = useState<
-    MultiValue<OptionType>
-  >([])
+  const [selectedOptions, setSelectedOptions] =
+    useState<MultiValue<OptionType>>()
 
-  const handleChange = (selected: MultiValue<OptionType>) => {
-    setSelectedOptions(selected || [])
+  const handleChange = (
+    selected: MultiValue<OptionType> | SingleValue<OptionType>
+  ) => {
+    const item = isMulti
+      ? (selected as MultiValue<OptionType>)
+      : ([selected] as MultiValue<OptionType>)
+
+    setSelectedOptions(item || [])
+    onChange?.(item)
   }
+
+  useEffect(() => {
+    setSelectedOptions(value)
+  }, [value])
 
   return (
     <div>
@@ -42,17 +63,17 @@ const MultiSelectWithCheckboxes: React.FC<Props> = ({
         placeholder={placeholder}
         closeMenuOnSelect={false}
         components={makeAnimated()}
-        isMulti
+        isMulti={isMulti}
         options={options}
         value={selectedOptions}
         onChange={handleChange}
         styles={customStyles}
         hideSelectedOptions={false}
         isOptionSelected={(option) =>
-          selectedOptions.some((selected) => selected.value === option.value)
+          !!selectedOptions?.some((selected) => selected.value === option.value)
         }
-        getOptionLabel={(e) => {
-          const isSelected = selectedOptions.some(
+        formatOptionLabel={(e) => {
+          const isSelected = !!selectedOptions?.some(
             (selected) => selected.value === e.value
           )
           return (

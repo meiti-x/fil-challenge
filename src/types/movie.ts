@@ -21,7 +21,7 @@ export default interface Movie {
   rate_enable_by_cnt: boolean
   descr: string
   cover: string
-  publish_date: string // ISO Date string
+  publish_date: string
   age_range: string
   pic: Pic
   rate_avrage: string
