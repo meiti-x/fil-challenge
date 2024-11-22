@@ -1,0 +1,20 @@
+.productCard {
+  @apply flex max-w-[200px] flex-col cursor-pointer
+}
+
+.cover {
+  @apply duration-100 transition-all relative rounded-md overflow-hidden
+}
+
+
+.cover .detail {
+  @apply opacity-0 transition-all duration-100 pointer-events-none absolute inset-0 bg-slate-950 bg-opacity-80 flex gap-2 py-2 px-1 text-gray-300 flex-col justify-end
+}
+
+.cover .detail .rate {
+  @apply ml-auto rounded-full bg-gray-100 bg-opacity-10 px-2 py-1
+}
+
+.cover:hover .detail {
+  @apply opacity-100 pointer-events-auto
+}
