@@ -10,12 +10,12 @@ interface Movie {
 
 interface FilteredMoviesHookParams {
   movies: Movie[]
-  filters: { categories?: string[]; sorts?: string[] }
+  filters: { categories?: OptionType[]; sorts?: OptionType[] }
 }
 
 export function filterMovies(
   movies: Movie[],
-  filters: { categories?: string[]; sorts?: string[] }
+  filters: { categories?: OptionType[]; sorts?: OptionType[] }
 ): Movie[] {
   let result = [...movies]
 
@@ -25,7 +25,7 @@ export function filterMovies(
   if (selectedCategories.length > 0) {
     result = result.filter((movie) =>
       movie.categories.some((category) =>
-        selectedCategories.includes(category.title_en)
+        selectedCategories.some((c) => c.value === category?.title_en)
       )
     )
   }
@@ -34,7 +34,7 @@ export function filterMovies(
     result.sort((a, b) => {
       const rateA = parseFloat(a.rate_avrage)
       const rateB = parseFloat(b.rate_avrage)
-      return selectedSort === 'top' ? rateB - rateA : rateA - rateB
+      return selectedSort.value === 'top' ? rateB - rateA : rateA - rateB
     })
   }
 

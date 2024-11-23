@@ -1,6 +1,6 @@
 import Typography from '@components/core/Typography'
 import './styles.css'
-import { toPersianNum } from '@utils/index'
+import { toPersianNum } from '../../../utils'
 
 interface Props {
   cover?: string
