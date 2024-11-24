@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { OptionType } from '@components/core/Select'
 
 interface Movie {
   id: string
@@ -10,12 +9,12 @@ interface Movie {
 
 interface FilteredMoviesHookParams {
   movies: Movie[]
-  filters: { categories?: OptionType[]; sorts?: OptionType[] }
+  filters: { categories?: string[]; sorts?: string[] }
 }
 
 export function filterMovies(
   movies: Movie[],
-  filters: { categories?: OptionType[]; sorts?: OptionType[] }
+  filters: { categories?: string[]; sorts?: string[] }
 ): Movie[] {
   let result = [...movies]
 
@@ -25,7 +24,7 @@ export function filterMovies(
   if (selectedCategories.length > 0) {
     result = result.filter((movie) =>
       movie.categories.some((category) =>
-        selectedCategories.some((c) => c.value === category?.title_en)
+        selectedCategories.some((c) => c === category?.title_en)
       )
     )
   }
@@ -34,7 +33,7 @@ export function filterMovies(
     result.sort((a, b) => {
       const rateA = parseFloat(a.rate_avrage)
       const rateB = parseFloat(b.rate_avrage)
-      return selectedSort.value === 'top' ? rateB - rateA : rateA - rateB
+      return selectedSort === 'top' ? rateB - rateA : rateA - rateB
     })
   }
 

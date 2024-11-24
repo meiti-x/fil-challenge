@@ -28,6 +28,10 @@ const customStyles: StylesConfig<OptionType, true, GroupBase<OptionType>> = {
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#333'
+  }),
+  multiValue: (styles) => ({
+    ...styles,
+    backgroundColor: '#555'
   })
 }
 
@@ -84,11 +88,7 @@ const MultiSelectWithCheckboxes: React.FC<Props> = ({
                 onChange={() => {}}
                 style={{ marginRight: 10 }}
               />
-              <Typography
-                className="mr-2"
-                variant="small"
-                color={isSelected ? 'white' : 'whiteSmoke'}
-              >
+              <Typography className="mr-2" variant="small" color="whiteSmoke">
                 {e.label}
               </Typography>
             </div>

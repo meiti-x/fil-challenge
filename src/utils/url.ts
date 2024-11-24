@@ -1,5 +1,3 @@
-import { OptionType } from '@components/core/Select'
-
 export const getQueryParams = (): { [key: string]: string | string[] } => {
   const urlParams = new URLSearchParams(window.location.search)
   const params: { [key: string]: string | string[] } = {}
@@ -11,7 +9,7 @@ export const getQueryParams = (): { [key: string]: string | string[] } => {
   return params
 }
 
-export const updateUrlParams = (filters: { [key: string]: OptionType[] }) => {
+export const updateUrlParams = (filters: { [key: string]: string[] }) => {
   const newUrl = new URL(window.location.href)
   const urlParams = new URLSearchParams()
 
@@ -19,7 +17,7 @@ export const updateUrlParams = (filters: { [key: string]: OptionType[] }) => {
     const value = filters[key]
 
     if (Array.isArray(value)) {
-      const valueString = value.map((v) => v.value).join(',')
+      const valueString = value.map((v) => v).join(',')
       urlParams.set(key, valueString)
     }
   })

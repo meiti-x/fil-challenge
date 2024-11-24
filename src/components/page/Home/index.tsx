@@ -54,12 +54,16 @@ function Home() {
       ...filters,
       [val]: fieldName.map((f) => f.value)
     }
+
+    console.log(curFilters)
     updateUrlParams(curFilters)
     setFilters(curFilters)
   }
 
   const selectedCategories = filters.categories || []
   const selectedSort = filters.sorts || []
+
+  console.log({ filters })
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -72,9 +76,7 @@ function Home() {
               options={categories}
               isMulti
               value={categories.filter((c) =>
-                selectedCategories.some(
-                  (selectedCategory) => selectedCategory.value === c.value
-                )
+                selectedCategories.includes(c.value)
               )}
             />
 
@@ -83,11 +85,7 @@ function Home() {
               placeholder="امتیاز فیلم"
               options={sort}
               isMulti={false}
-              value={sort.filter((c) =>
-                selectedSort.some(
-                  (selectedSortOption) => selectedSortOption.value === c.value
-                )
-              )}
+              value={sort.filter((c) => selectedSort.includes(c.value))}
             />
           </div>
 
