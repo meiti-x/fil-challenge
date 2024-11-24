@@ -21,7 +21,7 @@ export function filterMovies(
   const selectedCategories = filters.categories?.map((c) => c) || []
   const selectedSort = filters.sorts?.map((s) => s)[0]
 
-  if (selectedCategories.length > 0) {
+  if (selectedCategories.length > 0 && selectedCategories?.[0].length !== 0) {
     result = result.filter((movie) =>
       movie.categories.some((category) =>
         selectedCategories.some((c) => c === category?.title_en)
