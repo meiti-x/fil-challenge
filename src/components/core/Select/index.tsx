@@ -13,7 +13,7 @@ export interface OptionType {
   value: string
 }
 
-interface Props {
+export interface Props {
   options: OptionType[]
   placeholder?: string
   onChange?: (value: MultiValue<OptionType>) => void

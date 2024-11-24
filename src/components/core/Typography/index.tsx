@@ -1,6 +1,6 @@
 import React from 'react'
 
-type Props = {
+export type Props = {
   children: React.ReactNode
   variant?: 'xs' | 'small' | 'medium' | 'large' | 'xl'
   color?: 'white' | 'whiteSmoke' | 'black' | 'gray' | 'red' | 'blue'
